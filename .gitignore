@@ -11,8 +11,8 @@
 .pnp.*
 node_modules
 
-#Build files
-dist/
+#Build files - Keep for gh-pages
+# dist/
 
 # Editor directories and files
 .vscode/*
