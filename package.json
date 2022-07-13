@@ -2,7 +2,7 @@
   "name": "shard.page",
   "scripts": {
     "dev": "vite",
-    "build": "vite build",
+    "build": "vite build --outDir docs",
     "preview": "vite preview"
   },
   "devDependencies": {
