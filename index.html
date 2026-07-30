@@ -2,9 +2,11 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <link rel="icon" type="image/svg+xml" href="favicon.png" />
+    <link rel="icon" type="image/png" href="favicon.png" />
+    <meta name="description" content="CV of Mark Beukers - Full Stack Engineer" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Mark Beukers - CV</title>
+    <link rel="stylesheet" href="style.css" />
   </head>
   <body>
     <div id="main">
@@ -22,71 +24,104 @@
       <div id="work">
         <h2>Employment History</h2>
         <div>
-          <h3><img src="./icons/userback.png" /> Userback <span><b>Full Stack Developer</b> 2022-2024</span></h3>
+          <h3><img src="./icons/rune-logic.png" alt="" /> Rune Logic <span><b>Founder</b> 2025-Present</span></h3>
           <ul>
-            <li>Lead development on npm <a target="_blank" href="https://github.com/userback/widget-js">Widget SDKs</a> for multple frameworks including automated testing</li>
+            <li>Leading development of <a target="_blank" href="https://store.steampowered.com/app/4274390/Lichworks/">Lichworks</a>, an automation RTS built in C# on FNA with a custom ECS architecture enforced by Roslyn analyzers</li>
+            <li>A deliberate stress test of AI-native development: near-100% of the engine is agent-written, sustaining 50k+ active entities at 60fps</li>
+            <li>Deterministic lockstep multiplayer co-op with drop-in/drop-out play, headless dedicated servers, replay recording and desync detection</li>
+            <li>Shipping cross-platform Linux/Windows/Mac builds to Steam and itch.io</li>
+          </ul>
+        </div>
+        <div>
+          <h3><img src="./icons/valiant.png" alt="" /> Valiant Finance <span><b>DevOps Engineer</b> 2024-2025</span></h3>
+          <ul>
+            <li>Overhauled backend and frontend CI pipelines, cutting commit-to-completed runs from 15+ minutes to under 5</li>
+            <li>Designed and deployed a FluxCD-managed (GitOps) Kubernetes cluster on AWS for internal development environments</li>
+            <li>Improved database performance and uplifted observability practices and systems</li>
+          </ul>
+        </div>
+        <div>
+          <h3><img src="./icons/userback.png" alt="" /> Userback <span><b>Full Stack Developer</b> 2022-2024</span></h3>
+          <ul>
+            <li>Led development on npm <a target="_blank" href="https://github.com/userback/widget-js">Widget SDKs</a> for multiple frameworks including automated testing</li>
             <li>Refactored and upgraded existing web extension to support Manifest V3</li>
-            <li>Developed and deployed new NodeJS REST API</li>
+            <li>Developed and deployed new Node.js REST API</li>
             <li>Feature development and modernisation work on existing PHP/Backbone stack</li>
           </ul>
         </div>
         <div>
-          <h3><img src="./icons/sizle.png" /> Sizle.io <span><b>Co-Founder/CTO</b> 2017-2018/2022</span></h3>
+          <h3><img src="./icons/newscorp.webp" alt="" /> Newscorp Australia <span><b>Senior Frontend Developer</b> 2020-2022</span></h3>
           <ul>
-            <li>Originally building and founding mediapress.io (now sizle.io)</li>
-            <li>Working closely with the CEO to design and develop features for a new and developing product</li>
-            <li>Full stack development (AWS/Nodejs/express/Docker/React/Hasura)</li>
-          </ul>
-        </div>
-        <div>
-          <h3><img src="./icons/newscorp.webp" /> Newscorp Australia <span><b>Senior Frontend Developer</b> 2020-2022</span></h3>
-          <ul>
-            <li>Lead frontend efforts to modernise a legacy django2/grunt/jquery stack</li>
-            <li>Achieved more than 20x reductions in total FE size and vastly improved SE traffic</li>
+            <li>Led frontend efforts to modernise a legacy django2/grunt/jquery stack</li>
+            <li>Python development on the custom Django 2 fork, supporting its migration alongside CI improvements</li>
+            <li>Achieved more than 20x reductions in total FE size and vastly improved search traffic</li>
             <li>Designed and implemented a Docker Swarm architecture to handle deployments from local to production</li>
           </ul>
         </div>
         <div>
-          <h3><img src="./icons/liquid-state.png" /> Liquid State <span><b>Lead Frontend Developer</b> 2018-2019</span></h3>
+          <h3><img src="./icons/sizle.png" alt="" /> Sizle.io <span><b>Co-Founder/CTO</b> 2017-2018/2022</span></h3>
           <ul>
-            <li>Lead client solutions frontend development using React/Redux/GraphQL to create custom IOS, Android and web apps</li>
+            <li>Originally building and founding mediapress.io (now sizle.io)</li>
+            <li>Working closely with the CEO to design and develop features for a new and developing product</li>
+            <li>Full stack development (AWS/Node.js/Express/Docker/React/Hasura)</li>
+          </ul>
+        </div>
+        <div>
+          <h3><img src="./icons/liquid-state.png" alt="" /> Liquid State <span><b>Lead Frontend Developer</b> 2018-2019</span></h3>
+          <ul>
+            <li>Led client solutions frontend development using React/Redux/GraphQL to create custom iOS, Android and web apps</li>
             <li>Agile based storybook driven development for open source up-streaming of components</li>
           </ul>
         </div>
         <div>
-          <h3><img src="./icons/isobar.png" /> Isobar <span><b>Senior Frontend Developer</b> 2015-2017</span></h3>
+          <h3><img src="./icons/isobar.png" alt="" /> Isobar <span><b>Senior Frontend Developer</b> 2015-2017</span></h3>
           <ul>
-            <li>Developing bespoke client solutions for AusPost/AGN/BHP/Jetstar build ontop Sitefinity and Sharepoint</li>
+            <li>Developing bespoke client solutions for AusPost/AGN/BHP/Jetstar built on top of Sitefinity and Sharepoint</li>
             <li>Designed and integrated frontend workflow for a team of 20 to enable low weight JS frontends</li>
-            <li>Developed a Offline first mobile web app architecture with data sourcing from sharepoint</li>
+            <li>Developed an offline-first mobile web app architecture with data sourcing from Sharepoint</li>
           </ul>
         </div>
         <div>
-          <h3><img src="./icons/busivid.jpg" /> Busivid <span><b>Software Engineer</b> 2014-2015</span></h3>
+          <h3><img src="./icons/busivid.jpg" alt="" /> Busivid <span><b>Software Engineer</b> 2014-2015</span></h3>
           <ul>
             <li>C#/Mono development of video encoding APIs to enable multithreading and scaling capabilities</li>
-            <li>Frontend development with Cakephp/jQuery</li>
+            <li>Frontend development with CakePHP/jQuery</li>
             <li>Workflow improvements designed and implemented including SVN/git migration and CI/CD</li>
             <li>Development of Salesforce Apex application for integration into the main app</li>
           </ul>
         </div>
         <div>
-          <h3><img src="./icons/third-sense.jpg" /> 3rd Sense <span><b>Full stack web developer</b> 2012-2014</span></h3>
+          <h3><img src="./icons/third-sense.jpg" alt="" /> 3rd Sense <span><b>Full stack web developer</b> 2012-2014</span></h3>
           <ul>
-            <li>Backend APIs for Starling/IOS/Android video games with nodejs and Ruby on Rails for McDonald's, Blockbuster and Nickelodeon</li>
+            <li>Backend APIs for Starling/iOS/Android video games with Node.js and Ruby on Rails for McDonald's, Blockbuster and Nickelodeon</li>
             <li>Design and development of Technicolor's metadata catalogue system</li>
           </ul>
         </div>
         <div>
-          <h3><img src="./icons/bigclick.png" /> Big Click Studios <span><b>Full stack web developer</b> 2008-2012</span></h3>
+          <h3><img src="./icons/bigclick.png" alt="" /> Big Click Studios <span><b>Full stack web developer</b> 2008-2012</span></h3>
           <ul>
-            <li>Developing  custom web applications and websites with CakePHP 2/3 and ruby on rails</li>
+            <li>Developing custom web applications and websites with CakePHP 2/3 and ruby on rails</li>
             <li>Frontend development with jQuery(ui) and prototype.js</li>
-            <li>System admin for CentOS/Debian servers running Apache/Nginx/MySQL/Spinx</li>
+            <li>System admin for CentOS/Debian servers running Apache/Nginx/MySQL/Sphinx</li>
+          </ul>
+        </div>
+      </div>
+
+      <div id="projects">
+        <h2>Projects</h2>
+        <div>
+          <h3><a target="_blank" href="https://pyramid.82dk.net/">Foxhole Logi Pyramid</a> <span><a target="_blank" href="https://github.com/Shard/fir">github.com/Shard/fir</a></span></h3>
+          <ul>
+            <li>Logistics supply calculator for the game Foxhole — a priority-calculation layer built on fir's TensorFlow/TensorFlow.js image recognition, turning stockpile screenshots into prioritised supply requirements</li>
+          </ul>
+        </div>
+        <div>
+          <h3><a target="_blank" href="https://github.com/Shard/fronius-exporter">Fronius Exporter</a></h3>
+          <ul>
+            <li>Rust Prometheus exporter for Fronius solar inverters with subnet auto-discovery, Grafana dashboards and Docker/Kubernetes (Helm) deployment, used at home to monitor my local power grid</li>
           </ul>
         </div>
       </div>
     </div>
-    <script type="module" src="/main.js"></script>
   </body>
 </html>

@@ -1,8 +1,7 @@
-
 # [shard.page](https://shard.page)
 
-Requires `nodejs` and `yarn`.
+A plain static site — no build step. Edit `index.html` / `style.css` directly.
 
-## Setup and running
+To preview locally run `python -m http.server` (or just open `index.html` in a browser).
 
-Run `yarn` to install all dependecies and run `yarn build` to build a static version in `dist/`  and `yarn dev` to start a development server.
+Deployed via GitHub Pages from the repository root on `master`.
