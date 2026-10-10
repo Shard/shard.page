@@ -1,0 +1,38 @@
+---
+import { render } from 'astro:content';
+import Page from '../../layouts/Page.astro';
+import Tape from '../../components/Tape.astro';
+import Stamp from '../../components/Stamp.astro';
+import Postmark from '../../components/Postmark.astro';
+import { getArticles, formatDate } from '../../lib/articles';
+
+export async function getStaticPaths() {
+  const articles = await getArticles();
+  return articles.map((article) => ({ params: { slug: article.id }, props: { article } }));
+}
+
+const { article } = Astro.props;
+const { Content } = await render(article);
+const { title, description, date, updated, draft } = article.data;
+---
+
+<Page title={title} description={description} width="narrow">
+  <article class="sheet paper creased">
+    <Tape at="tl" />
+    <Tape at="tr" />
+    <header class="article-head">
+      <Postmark date={date} />
+      {draft && <Stamp tone="red" tilt={-4}>Draft</Stamp>}
+      <h1>{title}</h1>
+      <p>{description}</p>
+      <p class="sr-only">Posted <time datetime={date.toISOString()}>{formatDate(date)}</time></p>
+      {updated && <p class="eyebrow">Updated <time datetime={updated.toISOString()}>{formatDate(updated)}</time></p>}
+    </header>
+    <div class="prose">
+      <Content />
+    </div>
+    <footer class="article-foot no-print">
+      <a href="/articles/">← All articles</a>
+    </footer>
+  </article>
+</Page>

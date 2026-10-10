@@ -1,0 +1,102 @@
+---
+import Base from '../layouts/Base.astro';
+import Tape from '../components/Tape.astro';
+import Pin from '../components/Pin.astro';
+import Stamp from '../components/Stamp.astro';
+import { profile, jobs, projects } from '../data/site';
+import { getArticles, formatDate } from '../lib/articles';
+
+const recentJobs = jobs.slice(0, 5);
+const lichworks = projects.find((p) => p.slug === 'lichworks')!;
+const wrathbench = projects.find((p) => p.slug === 'wrathbench')!;
+const articles = (await getArticles()).slice(0, 3);
+---
+
+<Base
+  title={profile.name}
+  description="Mark Beukers, a software engineer in Brisbane. CV, projects and articles."
+>
+  <main class="pinboard">
+    <section class="card intro paper" style="--r:-1.1deg" aria-labelledby="intro-title">
+      <Tape at="tl" />
+      <Tape at="tr" />
+      <p class="eyebrow">shard.page</p>
+      <h1 id="intro-title">{profile.name}</h1>
+      <p class="lede">I’m a software engineer in Brisbane, and I’ve been building things for the web since 2008.</p>
+      <p>
+        I’ve worked across full stack, frontend leadership, a stint as co-founder and CTO, and most recently DevOps.
+        These days I run Rune Logic, where I’m building Lichworks, an automation RTS, and I tinker with how well AI
+        agents can play World of Warcraft.
+      </p>
+    </section>
+
+    <section class="card biz paper paper--bright" style="--r:2.4deg; --y:14px" aria-label="Contact details">
+      <Pin color="red" />
+      <p class="biz__name">{profile.name}</p>
+      <p class="biz__title">{profile.title}</p>
+      <ul>
+        <li><a href={profile.email.href}>{profile.email.label}</a></li>
+        <li><a href={profile.github.href}>{profile.github.label}</a></li>
+        <li>{profile.location}</li>
+      </ul>
+    </section>
+
+    <a class="card cv-card paper" href="/cv/" style="--r:1.3deg; --y:-6px">
+      <Pin color="blue" />
+      <span class="eyebrow">Curriculum Vitae</span>
+      <span class="cv-card__title">Where I’ve worked</span>
+      <ol>
+        {recentJobs.map((job, i) => (
+          <li class:list={{ 'fold-after': i === 0 || i === 2 }}><b>{job.company}</b> <small>{job.years.replace('–Present', '–')}</small><span>{job.role}</span></li>
+        ))}
+      </ol>
+      <span class="card__more">Full CV, plus {jobs.length - recentJobs.length} earlier roles →</span>
+    </a>
+
+    <a class="card projects-card" href="/projects/" style="--r:-0.6deg">
+      <figure class="polaroid">
+        <img
+          class="pixelated"
+          src={lichworks.image!.src}
+          width={lichworks.image!.width}
+          height={lichworks.image!.height}
+          alt=""
+          decoding="async"
+        />
+        <figcaption>Lichworks</figcaption>
+      </figure>
+      <figure class="print">
+        <img
+          src={wrathbench.image!.src}
+          width={wrathbench.image!.width}
+          height={wrathbench.image!.height}
+          alt=""
+          decoding="async"
+        />
+      </figure>
+      <span class="label paper paper--bright">
+        <Pin color="yellow" />
+        <span class="label__title">Projects</span>
+        <span class="label__list">{projects.map((p) => p.title).join(' · ')}</span>
+        <span class="card__more">See them all →</span>
+      </span>
+    </a>
+
+    <a class="card articles-card paper index-card" href="/articles/" style="--r:-1.8deg; --x:-6px; --y:10px">
+      <Tape at="top" />
+      <span class="index-title">Articles</span>
+      {articles.length > 0 ? (
+        <ul>
+          {articles.map((a) => (
+            <li><b>{a.data.title}</b> <small>· {formatDate(a.data.date)}</small></li>
+          ))}
+        </ul>
+      ) : (
+        <>
+          <span class="index-body">Write-ups and notes. Nothing pinned up yet, but the first ones are on their way.</span>
+          <Stamp tone="red" tilt={-8}>Coming soon</Stamp>
+        </>
+      )}
+    </a>
+  </main>
+</Base>

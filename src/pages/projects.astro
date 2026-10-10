@@ -1,0 +1,65 @@
+---
+import Page from '../layouts/Page.astro';
+import Pin from '../components/Pin.astro';
+import Tape from '../components/Tape.astro';
+import Stamp from '../components/Stamp.astro';
+import { projects, displayUrl } from '../data/site';
+
+const pins = ['red', 'blue', 'yellow', 'green'] as const;
+const linkLabel = (href: string) => (href.includes('steampowered.com') ? 'Steam page' : displayUrl(href));
+---
+
+<Page title="Projects" description="Things Mark Beukers has built: games, agent benchmarks, tools and exporters." width="wide">
+  <header class="page-label paper">
+    <Tape at="tl" />
+    <h1 class="page-title">Projects</h1>
+    <p class="page-intro">Games, benchmarks and tools I’ve built, some for work and most for the fun of it.</p>
+  </header>
+
+  <div class="project-list">
+    {projects.map((p, i) => {
+      const wide = p.image && p.image.width > p.image.height;
+      return (
+        <article
+          class:list={['project', 'paper', { 'project--feature': p.image, 'project--wide-image': wide }]}
+          id={p.slug}
+        >
+          <Pin color={pins[i % pins.length]} />
+          {p.image && (
+            <div class="project__media">
+              <figure class={wide ? 'print' : 'polaroid'}>
+                <img
+                  class:list={{ pixelated: p.image.pixelated }}
+                  src={p.image.src}
+                  width={p.image.width}
+                  height={p.image.height}
+                  alt={p.image.alt}
+                  loading={i === 0 ? 'eager' : 'lazy'}
+                  decoding="async"
+                />
+                {p.image.caption && <figcaption>{p.image.caption}</figcaption>}
+              </figure>
+            </div>
+          )}
+          <div class="project__main">
+            <div class="project__head">
+              <div>
+                <h2>{p.url ? <a href={p.url}>{p.title}</a> : p.title}</h2>
+                <p class="project__tagline">{p.tagline}</p>
+              </div>
+              <Stamp tone={p.stamp.tone} tilt={i % 2 ? 5 : -6}>{p.stamp.label}</Stamp>
+            </div>
+            <p class="project__body">{p.description}</p>
+            <ul class="tags" aria-label="Built with">
+              {p.tags.map((t) => <li>{t}</li>)}
+            </ul>
+            <ul class="project__links">
+              {p.url && <li><a href={p.url}>{linkLabel(p.url)} →</a></li>}
+              {p.repo && <li><a href={p.repo}>{displayUrl(p.repo)} →</a></li>}
+            </ul>
+          </div>
+        </article>
+      );
+    })}
+  </div>
+</Page>

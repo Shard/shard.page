@@ -1,0 +1,52 @@
+---
+import '../styles/global.css';
+import frauncesUrl from '@fontsource-variable/fraunces/files/fraunces-latin-opsz-normal.woff2?url';
+import newsreaderUrl from '@fontsource-variable/newsreader/files/newsreader-latin-wght-normal.woff2?url';
+import newsreaderItalicUrl from '@fontsource-variable/newsreader/files/newsreader-latin-wght-italic.woff2?url';
+import { profile } from '../data/site';
+
+interface Props {
+  title: string;
+  description: string;
+  /** Extra class on <body>, used for page-level layout hooks. */
+  bodyClass?: string;
+}
+
+const { title, description, bodyClass } = Astro.props;
+const canonical = new URL(Astro.url.pathname, Astro.site);
+const fullTitle = title === profile.name ? title : `${title} · ${profile.name}`;
+
+// Latin-only faces, declared here so the hashed file URLs can be preloaded.
+// The italic is only fetched by pages that actually set italic text.
+const fontFaces = `
+@font-face{font-family:'Fraunces Variable';font-style:normal;font-display:swap;font-weight:100 900;src:url(${frauncesUrl}) format('woff2-variations');}
+@font-face{font-family:'Newsreader Variable';font-style:normal;font-display:swap;font-weight:200 800;src:url(${newsreaderUrl}) format('woff2-variations');}
+@font-face{font-family:'Newsreader Variable';font-style:italic;font-display:swap;font-weight:200 800;src:url(${newsreaderItalicUrl}) format('woff2-variations');}
+`;
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{fullTitle}</title>
+    <meta name="description" content={description} />
+    <link rel="canonical" href={canonical} />
+    <link rel="icon" type="image/png" href="/favicon.png" />
+    <link rel="alternate" type="application/rss+xml" title={`${profile.name} · Articles`} href="/rss.xml" />
+    <meta name="theme-color" content="#7a8470" media="(prefers-color-scheme: light)" />
+    <meta name="theme-color" content="#384034" media="(prefers-color-scheme: dark)" />
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="shard.page" />
+    <meta property="og:title" content={fullTitle} />
+    <meta property="og:description" content={description} />
+    <meta property="og:url" content={canonical} />
+    <link rel="preload" href={frauncesUrl} as="font" type="font/woff2" crossorigin />
+    <link rel="preload" href={newsreaderUrl} as="font" type="font/woff2" crossorigin />
+    <style is:inline set:html={fontFaces}></style>
+  </head>
+  <body class={bodyClass}>
+    <slot />
+  </body>
+</html>

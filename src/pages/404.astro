@@ -1,0 +1,17 @@
+---
+import Base from '../layouts/Base.astro';
+import Pin from '../components/Pin.astro';
+import Stamp from '../components/Stamp.astro';
+---
+
+<Base title="Not found" description="This page isn’t on the board.">
+  <main class="lost">
+    <div class="card paper creased creased--once">
+      <Pin color="green" />
+      <Stamp tone="red" tilt={-8}>Return to sender</Stamp>
+      <h1>This page isn’t on the board</h1>
+      <p>It may have fallen down behind the desk, or it was never pinned up in the first place.</p>
+      <p><a href="/">Back to the board →</a></p>
+    </div>
+  </main>
+</Base>
