@@ -1,0 +1,73 @@
+---
+import Page from '../layouts/Page.astro';
+import Tape from '../components/Tape.astro';
+import { profile, jobs, type Job } from '../data/site';
+
+// The sheet is folded in thirds. Jobs sit two to a row, so estimate each
+// row's height in text lines (about 46 characters a line at full width) and
+// put the folds in the row gaps nearest a third and two thirds of the way down.
+const rows: Job[][] = [];
+for (let i = 0; i < jobs.length; i += 2) rows.push(jobs.slice(i, i + 2));
+
+const plain = (html: string) => html.replace(/<[^>]+>/g, '');
+const jobLines = (job: Job) => 2.4 + job.bullets.reduce((n, b) => n + Math.ceil(plain(b).length / 46) + 0.25, 0);
+const rowLines = rows.map((row) => Math.max(...row.map(jobLines)) + 1.5);
+const headLines = 9;
+const footLines = 5;
+let y = headLines;
+const rowEnds = rowLines.map((lines) => (y += lines));
+const total = y + footLines;
+const nearestGap = (target: number) =>
+  rowEnds.slice(0, -1).reduce((best, end, i) => (Math.abs(end - target) < Math.abs(rowEnds[best] - target) ? i : best), 0);
+const foldAfter = [...new Set([nearestGap(total / 3), nearestGap((2 * total) / 3)])].sort((a, b) => a - b);
+
+const panels: Job[][] = [];
+let from = 0;
+for (const at of [...foldAfter, rows.length - 1]) {
+  panels.push(rows.slice(from, at + 1).flat());
+  from = at + 1;
+}
+---
+
+<Page title="CV" description={`CV of ${profile.name}, ${profile.title} in ${profile.location}.`}>
+  <article class="sheet paper creased creased--v cv">
+    <Tape at="tl" />
+    <Tape at="tr" />
+    <header class="cv-head">
+      <div>
+        <h1>{profile.name}</h1>
+        <p class="cv-head__role">{profile.title}</p>
+      </div>
+      <ul class="cv-contact">
+        <li><a href={profile.site.href}>{profile.site.label}</a></li>
+        <li><a href={profile.github.href}>{profile.github.label}</a></li>
+        <li><a href={profile.email.href}>{profile.email.label}</a></li>
+        <li>{profile.location}</li>
+      </ul>
+    </header>
+
+    <section class="cv-section" aria-labelledby="work">
+      <h2 id="work">Employment History</h2>
+      {panels.map((panel, i) => (
+        <>
+          {i > 0 && <div class:list={['fold', { 'fold--mountain': i % 2 === 0 }]} aria-hidden="true" />}
+          <div class="cv-grid">
+            {panel.map((job) => (
+              <section class="cv-item">
+                <h3><img src={job.icon} alt="" width="18" height="18" />{job.company}</h3>
+                <p class="cv-meta"><b>{job.role}</b><span>{job.years}</span></p>
+                <ul>
+                  {job.bullets.map((b) => <li set:html={b} />)}
+                </ul>
+              </section>
+            ))}
+          </div>
+        </>
+      ))}
+    </section>
+
+    <div class="cv-actions no-print">
+      <button class="print-button" type="button" onclick="window.print()">Print or save as PDF</button>
+    </div>
+  </article>
+</Page>

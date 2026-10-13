@@ -1,0 +1,5 @@
+---
+interface Props { color?: 'red' | 'blue' | 'yellow' | 'green' }
+const { color = 'red' } = Astro.props;
+---
+<span class:list={['pin', `pin--${color}`]} aria-hidden="true"></span>

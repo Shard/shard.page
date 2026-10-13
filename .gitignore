@@ -8,3 +8,8 @@
 *.njsproj
 *.sln
 *.sw?
+
+# Build output and dependencies
+node_modules/
+dist/
+.astro/

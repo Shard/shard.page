@@ -1,0 +1,41 @@
+---
+import Page from '../../layouts/Page.astro';
+import Tape from '../../components/Tape.astro';
+import Stamp from '../../components/Stamp.astro';
+import Postmark from '../../components/Postmark.astro';
+import { getArticles } from '../../lib/articles';
+
+const articles = await getArticles();
+---
+
+<Page title="Articles" description="Articles and notes by Mark Beukers." width="narrow">
+  <article class="sheet paper creased">
+    <Tape at="tl" />
+    <Tape at="tr" />
+    <h1 class="page-title">Articles</h1>
+    <p class="page-intro">Write-ups, notes and the occasional longer post.</p>
+
+    {articles.length > 0 ? (
+      <ul class="article-list">
+        {articles.map((a, i) => (
+          <li>
+            <Postmark date={a.data.date} tilt={i % 2 ? 8 : -12} />
+            <div>
+              <h2>
+                <a href={`/articles/${a.id}/`}>{a.data.title}</a>
+                {a.data.draft && <Stamp tone="red" tilt={-4}>Draft</Stamp>}
+              </h2>
+              <p>{a.data.description}</p>
+            </div>
+          </li>
+        ))}
+      </ul>
+    ) : (
+      <div class="empty-state">
+        <Stamp tone="red" size="lg" tilt={-7}>Coming soon</Stamp>
+        <p>Nothing pinned up here yet. The first articles are on their way.</p>
+        <a class="feed-link" href="/rss.xml">Follow along with RSS</a>
+      </div>
+    )}
+  </article>
+</Page>

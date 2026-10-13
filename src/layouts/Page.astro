@@ -1,0 +1,49 @@
+---
+import Base from './Base.astro';
+import Tape from '../components/Tape.astro';
+import { profile } from '../data/site';
+
+interface Props {
+  title: string;
+  description: string;
+  /** Width class for the page column: narrow suits reading, wide suits a board of cards. */
+  width?: 'narrow' | 'normal' | 'wide';
+}
+
+const { title, description, width = 'normal' } = Astro.props;
+const path = Astro.url.pathname.replace(/\/$/, '') || '/';
+const nav = [
+  { href: '/', label: 'Board' },
+  { href: '/cv/', label: 'CV' },
+  { href: '/projects/', label: 'Projects' },
+  { href: '/articles/', label: 'Articles' },
+];
+const isCurrent = (href: string) => {
+  const target = href.replace(/\/$/, '') || '/';
+  return target === '/' ? path === '/' : path === target || path.startsWith(`${target}/`);
+};
+---
+
+<Base title={title} description={description}>
+  <div class:list={['page', `page--${width}`]}>
+    <header class="site-head">
+      <div class="strip paper">
+        <Tape at="tl" />
+        <a class="strip__name" href="/">{profile.name}</a>
+        <nav aria-label="Site">
+          <ul>
+            {nav.map((item) => (
+              <li><a href={item.href} aria-current={isCurrent(item.href) ? 'page' : undefined}>{item.label}</a></li>
+            ))}
+          </ul>
+        </nav>
+      </div>
+    </header>
+    <main id="main">
+      <slot />
+    </main>
+    <footer class="site-foot">
+      <p>© {new Date().getFullYear()} {profile.name} · <a href="/rss.xml">RSS</a> · <a href={profile.github.href}>GitHub</a></p>
+    </footer>
+  </div>
+</Base>

@@ -1,0 +1,6 @@
+---
+import type { StampTone } from '../data/site';
+interface Props { tone?: StampTone; size?: 'sm' | 'lg'; tilt?: number; class?: string }
+const { tone = 'red', size = 'sm', tilt = -6, class: className } = Astro.props;
+---
+<span class:list={['stamp', `stamp--${tone}`, `stamp--${size}`, className]} style={`--tilt:${tilt}deg`}><slot /></span>

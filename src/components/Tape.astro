@@ -1,0 +1,6 @@
+---
+// A strip of masking tape. Position it with a modifier class: tl, tr, top, bl, br.
+interface Props { at?: 'tl' | 'tr' | 'top' | 'bl' | 'br' }
+const { at = 'top' } = Astro.props;
+---
+<span class:list={['tape', `tape--${at}`]} aria-hidden="true"></span>
