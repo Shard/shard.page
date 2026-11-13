@@ -12,7 +12,7 @@ for (let i = 0; i < jobs.length; i += 2) rows.push(jobs.slice(i, i + 2));
 const plain = (html: string) => html.replace(/<[^>]+>/g, '');
 const jobLines = (job: Job) => 2.4 + job.bullets.reduce((n, b) => n + Math.ceil(plain(b).length / 46) + 0.25, 0);
 const rowLines = rows.map((row) => Math.max(...row.map(jobLines)) + 1.5);
-const headLines = 9;
+const headLines = 17;
 const footLines = 5;
 let y = headLines;
 const rowEnds = rowLines.map((lines) => (y += lines));
@@ -46,8 +46,22 @@ for (const at of [...foldAfter, rows.length - 1]) {
       </ul>
     </header>
 
+    <p class="cv-summary" set:html={profile.summary} />
+
+    <section class="cv-section" aria-labelledby="skills">
+      <h2 id="skills">Skills</h2>
+      <dl class="cv-skills">
+        {profile.skills.map((group) => (
+          <div>
+            <dt>{group.label}</dt>
+            <dd>{group.items.join(', ')}</dd>
+          </div>
+        ))}
+      </dl>
+    </section>
+
     <section class="cv-section" aria-labelledby="work">
-      <h2 id="work">Employment History</h2>
+      <h2 id="work">Experience</h2>
       {panels.map((panel, i) => (
         <>
           {i > 0 && <div class:list={['fold', { 'fold--mountain': i % 2 === 0 }]} aria-hidden="true" />}
